@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Commit Message Builder — a simple utility for constructing standardized git commit messages">
+  <title>Commit Message Builder</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234a7cf7'/%3E%3Ccircle cx='16' cy='16' r='5' fill='none' stroke='%23fff' stroke-width='2.5'/%3E%3Cline x1='16' y1='4' x2='16' y2='11' stroke='%23fff' stroke-width='2.5' stroke-linecap='round'/%3E%3Cline x1='16' y1='21' x2='16' y2='28' stroke='%23fff' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 id="heading"></h1>
+    </header>
+
+    <section class="preview-section">
+      <div id="preview" class="preview invalid">
+        <span id="preview-text"></span>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="ticket-number" id="label-ticket"></label>
+          <div class="ticket-composite">
+            <select id="ticket-prefix"></select>
+            <input type="number" id="ticket-number" min="1" max="99999">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="team" id="label-team"></label>
+          <select id="team"></select>
+        </div>
+        <div class="form-group">
+          <label for="type" id="label-type"></label>
+          <select id="type"></select>
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="commit-message" id="label-message"></label>
+        <textarea id="commit-message"></textarea>
+      </div>
+
+      <div class="options-row">
+        <button type="button" id="replace-quotes-btn" class="action-btn"></button>
+        <div class="option-group">
+          <label class="toggle">
+            <input type="checkbox" id="git-wrap-toggle" aria-label="Wrap with git commit -m">
+            <span class="toggle-slider"></span>
+          </label>
+          <span id="label-git-wrap" class="options-label"></span>
+        </div>
+        <div class="option-group">
+          <label class="toggle">
+            <input type="checkbox" id="pr-toggle" aria-label="PR comments">
+            <span class="toggle-slider"></span>
+          </label>
+          <span id="label-pr-fix" class="options-label"></span>
+        </div>
+        <div class="pr-suffix-composite">
+          <input type="text" id="pr-suffix" class="pr-suffix-input" disabled>
+          <button type="button" id="pr-edit-btn" class="pr-edit-btn"></button>
+          <button type="button" id="pr-reset-btn" class="pr-reset-btn"></button>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button id="reset-btn" class="reset-btn" type="button"></button>
+        <button id="save-btn" class="save-btn" disabled></button>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <div class="history-header">
+        <h2 id="history-heading"></h2>
+        <div class="history-nav">
+          <button id="prev-btn" class="nav-btn" disabled></button>
+          <button id="next-btn" class="nav-btn" disabled></button>
+          <button id="clear-btn" class="clear-btn"></button>
+        </div>
+      </div>
+      <ul id="history-list" class="history-list"></ul>
+    </section>
+
+    <footer>
+      <p id="footer-text"></p>
+    </footer>
+  </div>
+
+  <script src="js/strings.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/format.js"></script>
+  <script src="js/clipboard.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

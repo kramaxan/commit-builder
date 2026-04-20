@@ -1,0 +1,676 @@
+/* ── Design Tokens ─────────────────────────────── */
+:root {
+  /* Colors */
+  --color-bg: #f4f6f9;
+  --color-surface: #ffffff;
+  --color-text: #1a1a2e;
+  --color-text-muted: #6b7280;
+  --color-border: #d1d5db;
+  --color-border-hover: #9ca3af;
+  --color-accent: #4a7cf7;
+  --color-accent-hover: #3b6de6;
+  --color-accent-subtle: rgba(74, 124, 247, 0.06);
+  --color-valid: #22c55e;
+  --color-valid-bg: #f0fdf4;
+  --color-valid-border: #86efac;
+  --color-invalid: #ef4444;
+  --color-invalid-bg: #fef2f2;
+  --color-invalid-border: #fca5a5;
+
+  /* Typography */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.875rem;
+  --text-md: 1rem;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Shape */
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --transition: 0.2s ease;
+
+  /* Sizing */
+  --input-height: 44px;
+  --btn-height: 44px;
+}
+
+/* ── Reset & Base ─────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  font-size: var(--text-md);
+}
+
+/* ── Layout ───────────────────────────────────── */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+}
+
+/* ── Preview ──────────────────────────────────── */
+.preview-section {
+  margin-bottom: var(--space-6);
+}
+
+.preview {
+  padding: var(--space-4) 20px;
+  border-radius: var(--radius);
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.9375rem;
+  cursor: text;
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+  border: 1.5px solid;
+  min-height: 52px;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+}
+
+.preview.valid {
+  background: var(--color-valid-bg);
+  border-color: var(--color-valid-border);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.08);
+}
+
+.preview.invalid {
+  background: var(--color-invalid-bg);
+  border-color: var(--color-invalid-border);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.06);
+}
+
+/* ── Cards (form + history) ───────────────────── */
+.form-section,
+.history-section {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  padding: var(--space-6);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--color-border);
+}
+
+.form-section {
+  margin-bottom: var(--space-6);
+}
+
+/* ── Form Layout ──────────────────────────────── */
+.form-row {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.form-group.full-width {
+  margin-bottom: var(--space-4);
+}
+
+/* ── Labels ───────────────────────────────────── */
+label,
+.options-label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* ── Inputs & Selects ─────────────────────────── */
+select,
+input[type="text"],
+input[type="number"],
+textarea {
+  height: var(--input-height);
+  padding: 0 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-md);
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+
+textarea {
+  height: auto;
+  padding: var(--space-3) 14px;
+  resize: vertical;
+  min-height: 120px;
+}
+
+select:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(74, 124, 247, 0.12);
+}
+
+select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8.825L1.175 4 2.238 2.938 6 6.7 9.763 2.937 10.825 4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+}
+
+/* Hide number input spinner arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  appearance: textfield;
+}
+
+/* ── Composite Elements ───────────────────────── */
+.ticket-composite,
+.pr-suffix-composite {
+  display: flex;
+}
+
+.ticket-composite select,
+.pr-suffix-composite .pr-suffix-input {
+  border-right: none;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.ticket-composite input[type="number"] {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  flex: 1;
+  min-width: 0;
+}
+
+.ticket-composite select:focus,
+.ticket-composite input[type="number"]:focus,
+.pr-suffix-composite .pr-suffix-input:focus {
+  z-index: 1;
+}
+
+.pr-suffix-composite {
+  flex: 0 1 280px;
+  min-width: 0;
+}
+
+.pr-suffix-composite .pr-suffix-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.pr-suffix-input:disabled {
+  background: var(--color-bg);
+  color: var(--color-text-muted);
+}
+
+/* ── Buttons: Shared Base ─────────────────────── */
+button {
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition), opacity var(--transition), transform var(--transition);
+  min-height: var(--btn-height);
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Button Row ───────────────────────────────── */
+.button-row {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* ── Primary Button ───────────────────────────── */
+.save-btn {
+  flex: 1;
+  padding: 0 var(--space-4);
+  color: #fff;
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+.save-btn:hover:not(:disabled) {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.save-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.save-btn.copied {
+  background: var(--color-valid);
+  border-color: var(--color-valid);
+}
+
+/* ── Secondary Button ─────────────────────────── */
+.reset-btn {
+  padding: 0 var(--space-6);
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.reset-btn:hover {
+  background: var(--color-bg);
+  border-color: var(--color-border-hover);
+}
+
+/* ── Options Row ──────────────────────────────── */
+.options-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.option-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ── Action Button ────────────────────────────── */
+.action-btn {
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  min-height: 36px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.action-btn:hover {
+  background: var(--color-bg);
+  border-color: var(--color-border-hover);
+}
+
+/* ── Inline Composite Buttons ─────────────────── */
+.pr-suffix-composite .pr-edit-btn {
+  padding: 0 var(--space-4);
+  color: var(--color-accent);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: none;
+  border-radius: 0;
+  min-height: var(--input-height);
+  white-space: nowrap;
+}
+
+.pr-suffix-composite .pr-edit-btn:hover {
+  background: var(--color-accent-subtle);
+  color: var(--color-accent-hover);
+}
+
+.pr-suffix-composite .pr-reset-btn {
+  padding: 0 var(--space-3);
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: none;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  min-height: var(--input-height);
+  white-space: nowrap;
+  font-size: var(--text-md);
+}
+
+.pr-suffix-composite .pr-reset-btn:hover {
+  background: var(--color-invalid-bg);
+  color: var(--color-invalid);
+}
+
+/* ── Toggle Switch ────────────────────────────── */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 26px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  inset: 0;
+  background: var(--color-border);
+  border-radius: 26px;
+  transition: background var(--transition);
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px;
+  bottom: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform var(--transition);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.toggle input:checked + .toggle-slider {
+  background: var(--color-accent);
+}
+
+.toggle input:checked + .toggle-slider::before {
+  transform: translateX(22px);
+}
+
+/* ── History ──────────────────────────────────── */
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.history-header h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.history-nav {
+  display: flex;
+  gap: var(--space-2);
+}
+
+/* ── Small Buttons (nav, clear) ───────────────── */
+.nav-btn,
+.clear-btn {
+  padding: 0 var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  min-height: 36px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.nav-btn:hover:not(:disabled),
+.clear-btn:hover:not(:disabled) {
+  background: var(--color-bg);
+  border-color: var(--color-border-hover);
+}
+
+.clear-btn {
+  color: var(--color-invalid);
+  border-color: var(--color-invalid);
+}
+
+.clear-btn:hover:not(:disabled) {
+  background: var(--color-invalid-bg);
+  border-color: var(--color-invalid);
+}
+
+/* ── History Empty State ──────────────────────── */
+.history-empty {
+  text-align: center;
+  padding: var(--space-8) var(--space-4);
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+}
+
+/* ── History List ─────────────────────────────── */
+.history-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  transition: background var(--transition), border-color var(--transition);
+  cursor: pointer;
+}
+
+.history-item:hover {
+  background: var(--color-bg);
+}
+
+.history-item.active {
+  border-color: var(--color-accent);
+  background: var(--color-accent-subtle);
+}
+
+.history-text {
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: var(--text-sm);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: var(--space-3);
+}
+
+/* ── History Action Buttons (shared base) ─────── */
+.history-action {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+  flex-shrink: 0;
+}
+
+.history-copy:hover {
+  color: var(--color-accent);
+  background: var(--color-accent-subtle);
+}
+
+.history-copy.copied {
+  color: var(--color-valid);
+}
+
+.history-delete {
+  font-size: 1.125rem;
+}
+
+.history-delete:hover {
+  color: var(--color-invalid);
+  background: var(--color-invalid-bg);
+}
+
+/* ── Footer ───────────────────────────────────── */
+footer {
+  text-align: center;
+  margin-top: 48px;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* ── Responsive: Mobile ───────────────────────── */
+@media (max-width: 600px) {
+  .container {
+    padding: var(--space-4) var(--space-3);
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .preview {
+    padding: var(--space-3) 14px;
+    font-size: var(--text-base);
+  }
+
+  .form-section,
+  .history-section {
+    padding: var(--space-4);
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .ticket-composite {
+    max-width: 100%;
+  }
+
+  textarea {
+    min-height: 100px;
+  }
+
+  .options-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--color-bg);
+    border-radius: var(--radius-sm);
+  }
+
+  .pr-suffix-composite {
+    flex-basis: auto;
+    align-self: stretch;
+  }
+
+  .button-row {
+    gap: var(--space-2);
+  }
+
+  .save-btn,
+  .reset-btn {
+    min-height: 48px;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .history-nav {
+    align-self: flex-end;
+    flex-wrap: wrap;
+    gap: var(--space-1);
+  }
+
+  .nav-btn,
+  .clear-btn {
+    min-height: 40px;
+    padding: 0 var(--space-3);
+  }
+
+  .history-list {
+    max-height: 200px;
+  }
+
+  .history-text {
+    font-size: var(--text-xs);
+  }
+
+  .history-delete {
+    font-size: 1.25rem;
+  }
+
+  footer {
+    margin-top: var(--space-6);
+  }
+}
+
+@media (max-width: 380px) {
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  .options-label {
+    white-space: normal;
+  }
+
+  .nav-btn,
+  .clear-btn {
+    padding: 0 var(--space-2);
+    font-size: var(--text-xs);
+  }
+}
